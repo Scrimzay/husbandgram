@@ -111,13 +111,6 @@ func logicAPIHandler(c *gin.Context) {
 		c.Data(http.StatusBadRequest, "text/html", []byte(`<div class="text-red-600">userInput and genreInput are required</div>`))
 		return
 	}
-
-	// Validate inputs
-	if userInput == "" || genreInput == "" {
-		logger.Warn("Invalid input: userInput or genreInput empty")
-		c.Data(http.StatusBadRequest, "text/html", []byte(`<div class="text-red-600">userInput and genreInput are required</div>`))
-		return
-	}
 	if !utf8.ValidString(userInput) || !utf8.ValidString(genreInput) {
 		logger.Warn("Invalid input: userInput or genreInput contains invalid UTF-8")
 		c.Data(http.StatusBadRequest, "text/html", []byte(`<div class="text-red-600">Inputs must contain valid characters</div>`))
