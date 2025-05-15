@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text to Novelist Audio</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- HTMX CDN -->
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom Tailwind config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                        },
+                        dark: {
+                            800: '#1e293b',
+                            900: '#0f172a',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+        .audio-player {
+            transition: all 0.3s ease;
+        }
+        .audio-player:hover {
+            transform: scale(1.02);
+        }
+    </style>
+</head>
+<body class="font-sans flex items-center justify-center min-h-screen p-4">
+    <div class="bg-white/90 backdrop-blur-sm p-8 rounded-2xl shadow-xl w-full max-w-lg border border-white/20">
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-dark-900 mb-2">Text to Novelist Audio</h1>
+            <p class="text-gray-600">Transform your text into immersive audio stories</p>
+        </div>
+        
+        <!-- Form with HTMX -->
+        <form hx-post="/create" hx-target="#result" hx-swap="innerHTML" class="space-y-5">
+            <div>
+                <label for="userInput" class="block text-sm font-medium text-gray-700 mb-1">Your Text</label>
+                <div class="relative">
+                    <input type="text" id="userInput" name="userInput" 
+                           class="w-full p-3 pl-4 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent shadow-sm transition-all duration-200"
+                           placeholder="e.g., The sun sets slowly behind the ancient castle..." required>
+                    <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                        <i class="fas fa-pen text-gray-400"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div>
+                <label for="genreInput" class="block text-sm font-medium text-gray-700 mb-1">Genre</label>
+                <div class="relative">
+                    <select id="genreInput" name="genreInput" 
+                            class="w-full p-3 pl-4 pr-8 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent appearance-none shadow-sm bg-white">
+                        <option value="" disabled selected>Select a genre</option>
+                        <option value="fantasy">Fantasy</option>
+                        <option value="sci-fi">Sci-Fi</option>
+                        <option value="mystery">Mystery</option>
+                        <option value="romance">Romance</option>
+                        <option value="historical">Historical</option>
+                        <option value="smut">Smut</option>
+                        <option value="comedy">Comedy</option>
+                        <option value="action">Action</option>
+                        <option value="nerdy">Nerdy</option>
+                    </select>
+                    <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                        <i class="fas fa-chevron-down text-gray-400"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <button type="submit" 
+                    class="w-full bg-primary-500 hover:bg-primary-600 text-white p-3 rounded-lg font-medium transition-all duration-200 shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 flex items-center justify-center gap-2">
+                <i class="fas fa-magic"></i>
+                Generate Audio
+            </button>
+        </form>
+
+        <!-- Result area for audio or error -->
+        <div id="result" class="mt-8 transition-all duration-300">
+            <!-- Initially empty, updated by HTMX -->
+        </div>
+        
+        <div class="mt-8 text-center text-sm text-gray-500">
+            <p>Powered by AI magic ✨</p>
+        </div>
+    </div>
+</body>
+</html>
