@@ -1,0 +1,1 @@
+this is from CodeTV's web dev challenge S2E1, i thought it was a good idea so i tried making it myself, you use your own API keys loser. backend by me, frontend by deepseek. Feel free to change the deepseek prompts to how you want the audio done
